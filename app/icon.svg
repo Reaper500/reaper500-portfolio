@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Reaper500 logo">
+  <rect width="64" height="64" rx="14" fill="#080A0C"/>
+  <path d="M32 7 L53 19.5 V44.5 L32 57 L11 44.5 V19.5 Z" fill="none" stroke="#B7FF3C" stroke-width="2.5"/>
+  <path d="M32 16 L45 24 V40 L32 48 L19 40 V24 Z" fill="none" stroke="#54D9FF" stroke-width="1" opacity="0.5"/>
+  <text x="32" y="40" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" font-weight="700" fill="#B7FF3C" text-anchor="middle" letter-spacing="-1">R5</text>
+</svg>
