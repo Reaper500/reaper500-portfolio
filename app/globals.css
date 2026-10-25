@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-base-deep text-content-primary font-body antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: #b7ff3c;
+    color: #080a0c;
+  }
+
+  /* Visible, consistent focus ring for keyboard users. */
+  :focus-visible {
+    outline: 2px solid #54d9ff;
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight;
+  }
+
+  /* Custom scrollbar (non-essential, degrades gracefully). */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #2a333b transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #2a333b;
+    border-radius: 999px;
+    border: 2px solid #080a0c;
+  }
+}
+
+@layer components {
+  .section-shell {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .panel {
+    @apply border border-line bg-base-soft/60 backdrop-blur-sm;
+  }
+
+  .tech-label {
+    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-content-muted;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm px-5 py-3 font-mono text-xs uppercase tracking-[0.14em] transition-colors duration-200;
+  }
+  .btn-primary {
+    @apply btn bg-accent-lime text-base-deep hover:bg-[#c9ff6b];
+  }
+  .btn-ghost {
+    @apply btn border border-line-strong text-content-primary hover:border-accent-cyan hover:text-accent-cyan;
+  }
+}
+
+@layer utilities {
+  /* Subtle engineering grid. */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(243, 245, 247, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(243, 245, 247, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .grid-bg-fine {
+    background-image:
+      linear-gradient(to right, rgba(243, 245, 247, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(243, 245, 247, 0.035) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .text-glow-lime {
+    text-shadow: 0 0 22px rgba(183, 255, 60, 0.35);
+  }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  /* Scroll-reveal states (paired with useInView). */
+  .reveal-hidden {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .reveal-in {
+    animation: fade-up 0.6s ease-out both;
+  }
+}
+
+/*
+ * Respect the visitor's motion preference. Every decorative animation is
+ * disabled; content and layout are unaffected.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  /* Never hide content behind a reveal that will not play. */
+  .reveal-hidden {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
