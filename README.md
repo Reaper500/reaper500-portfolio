@@ -83,8 +83,13 @@ empty state instead of fake articles. Add an object to the array to publish one.
 
 ```
 app/
-  layout.tsx            metadata, fonts, skip-link, noscript fallback
-  page.tsx              section composition
+  layout.tsx            metadata, fonts, Navbar + Footer, skip-link, noscript fallback
+  page.tsx              Home — hero + explore links
+  about/page.tsx        About
+  skills/page.tsx       Tech stack
+  projects/page.tsx     Projects + Activity
+  reviews/page.tsx      Tech reviews
+  contact/page.tsx      Contact
   globals.css           design tokens, utilities, reduced-motion handling
   icon.svg              favicon
   api/github/route.ts   server proxy for GitHub (cached 1h)
@@ -97,6 +102,9 @@ data/                   editable content
 types/                  shared types
 public/og.svg           social share image
 ```
+
+The site is **multi-page**: each nav item is a real route with its own URL,
+`<h1>`, page title and metadata — not a scroll anchor on a single page.
 
 ---
 
