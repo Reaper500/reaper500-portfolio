@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowUpRight, Github } from "lucide-react";
 import { profile } from "@/data/profile";
 import { Terminal } from "@/components/Terminal";
@@ -51,12 +52,12 @@ export function Hero() {
 
           <Reveal delay={160}>
             <div className="mt-9 flex flex-wrap items-center gap-3">
-              <a href="#projects" className="btn-primary">
+              <Link href="/projects" className="btn-primary">
                 {profile.hero.primaryCta}
-              </a>
-              <a href="#contact" className="btn-ghost">
+              </Link>
+              <Link href="/contact" className="btn-ghost">
                 {profile.hero.secondaryCta}
-              </a>
+              </Link>
             </div>
 
             <a
