@@ -83,6 +83,7 @@ export function Contact() {
           code="06 // ESTABLISH_CONNECTION"
           title="HAVE SOMETHING INTERESTING?"
           headingId="contact-heading"
+          level={1}
           blurb="I'm always interested in good ideas, useful technology, interesting collaborations, and conversations about software."
         />
 
