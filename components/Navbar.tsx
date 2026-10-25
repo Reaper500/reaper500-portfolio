@@ -1,23 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Github, Menu, X } from "lucide-react";
 import { profile } from "@/data/profile";
 import { StatusDot } from "@/components/StatusDot";
 
-const LINKS = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#reviews", label: "Tech Reviews" },
-  { href: "#contact", label: "Contact" },
+export const NAV_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/skills", label: "Skills" },
+  { href: "/projects", label: "Projects" },
+  { href: "/reviews", label: "Tech Reviews" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState("#home");
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -26,29 +31,12 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Track which section is currently in view.
+  // Close the mobile menu whenever the route changes.
   useEffect(() => {
-    if (typeof IntersectionObserver === "undefined") return;
-    const sections = LINKS.map((l) => document.getElementById(l.href.slice(1))).filter(
-      (el): el is HTMLElement => Boolean(el),
-    );
-    if (sections.length === 0) return;
+    setOpen(false);
+  }, [pathname]);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const mostVisible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (mostVisible) setActive(`#${mostVisible.target.id}`);
-      },
-      { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.2, 0.5, 1] },
-    );
-
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
-  }, []);
-
-  // Close the mobile menu with Escape, and lock background scroll while open.
+  // Escape closes the menu; lock background scroll while it is open.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
@@ -73,12 +61,10 @@ export function Navbar() {
       }`}
     >
       <nav className="section-shell flex h-16 items-center justify-between gap-4" aria-label="Primary">
-        {/* Logo */}
-        <a
-          href="#home"
-          onClick={() => setOpen(false)}
+        <Link
+          href="/"
           className="group flex items-center gap-3"
-          aria-label="Reaper500 — back to top"
+          aria-label="Reaper500 — home"
         >
           <span className="font-mono text-sm font-semibold tracking-[0.18em] text-content-primary transition-colors group-hover:text-accent-lime">
             REAPER<span className="text-accent-lime">500</span>
@@ -86,31 +72,31 @@ export function Navbar() {
           <span className="hidden sm:inline-flex">
             <StatusDot label="Developer Portfolio" />
           </span>
-        </a>
+        </Link>
 
         {/* Desktop links */}
         <ul className="hidden items-center gap-1 lg:flex">
-          {LINKS.map((link) => {
-            const isActive = active === link.href;
+          {NAV_LINKS.map((link) => {
+            const active = isActive(link.href);
             return (
               <li key={link.href}>
-                <a
+                <Link
                   href={link.href}
-                  aria-current={isActive ? "true" : undefined}
+                  aria-current={active ? "page" : undefined}
                   className={`relative rounded-sm px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] transition-colors ${
-                    isActive
+                    active
                       ? "text-accent-lime"
                       : "text-content-secondary hover:text-content-primary"
                   }`}
                 >
                   {link.label}
-                  {isActive ? (
+                  {active ? (
                     <span
                       aria-hidden="true"
                       className="absolute inset-x-3 -bottom-0.5 h-px bg-accent-lime"
                     />
                   ) : null}
-                </a>
+                </Link>
               </li>
             );
           })}
@@ -127,7 +113,6 @@ export function Navbar() {
             GitHub
           </a>
 
-          {/* Mobile toggle */}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -148,20 +133,26 @@ export function Navbar() {
         className="border-t border-line bg-base-deep/95 backdrop-blur-md lg:hidden"
       >
         <ul className="section-shell flex flex-col py-4">
-          {LINKS.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="flex items-center justify-between border-b border-line py-4 font-mono text-sm uppercase tracking-[0.16em] text-content-secondary transition-colors hover:text-accent-lime"
-              >
-                {link.label}
-                <span aria-hidden="true" className="text-content-muted">
-                  ↗
-                </span>
-              </a>
-            </li>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const active = isActive(link.href);
+            return (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className={`flex items-center justify-between border-b border-line py-4 font-mono text-sm uppercase tracking-[0.16em] transition-colors ${
+                    active ? "text-accent-lime" : "text-content-secondary hover:text-accent-lime"
+                  }`}
+                >
+                  {link.label}
+                  <span aria-hidden="true" className="text-content-muted">
+                    →
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
           <li className="pt-5">
             <a
               href={profile.githubUrl}
