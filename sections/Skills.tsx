@@ -27,6 +27,7 @@ export function Skills() {
           code="02 // TECHNOLOGY_STACK"
           title="TOOLS OF THE TRADE."
           headingId="skills-heading"
+          level={1}
           blurb="Technologies I work with and areas I'm actively exploring. No percentage scores — proficiency labels are shown only where they can be backed up."
         />
 
