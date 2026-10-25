@@ -11,6 +11,7 @@ export function About() {
           code="01 // ABOUT_THE_DEVELOPER"
           title={profile.about.heading}
           headingId="about-heading"
+          level={1}
         />
 
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr]">
