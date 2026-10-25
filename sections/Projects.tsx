@@ -90,6 +90,7 @@ export function Projects() {
           code="03 // SELECTED_WORK"
           title="CODE THAT DOES SOMETHING."
           headingId="projects-heading"
+          level={1}
           blurb="Projects, experiments, and ideas brought to life through code. Everything below is pulled live from public repositories on GitHub — nothing is invented."
         />
 
