@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -24,7 +26,10 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://reaper500.dev";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Reaper500 | Kibang Virtue — Developer & Tech Enthusiast",
+  title: {
+    default: "Reaper500 | Kibang Virtue — Developer & Tech Enthusiast",
+    template: "%s | Reaper500",
+  },
   description:
     "Explore the portfolio of Kibang Virtue, known as Reaper500. Discover web development, mobile development, systems programming, AI exploration, open-source projects, and technology reviews.",
   keywords: [
@@ -95,7 +100,9 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        {children}
+        <Navbar />
+        <main id="main">{children}</main>
+        <Footer />
       </body>
     </html>
   );
