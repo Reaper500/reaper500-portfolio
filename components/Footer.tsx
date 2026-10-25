@@ -1,12 +1,13 @@
+import Link from "next/link";
 import { Github } from "lucide-react";
 import { profile } from "@/data/profile";
 
 const FOOTER_LINKS = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#reviews", label: "Tech Reviews" },
-  { href: "#contact", label: "Contact" },
+  { href: "/about", label: "About" },
+  { href: "/skills", label: "Skills" },
+  { href: "/projects", label: "Projects" },
+  { href: "/reviews", label: "Tech Reviews" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export function Footer() {
@@ -31,12 +32,12 @@ export function Footer() {
             <ul className="flex flex-wrap gap-x-6 gap-y-3">
               {FOOTER_LINKS.map((link) => (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
                     className="font-mono text-xs uppercase tracking-[0.14em] text-content-secondary transition-colors hover:text-accent-cyan"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
