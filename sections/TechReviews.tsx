@@ -28,6 +28,7 @@ export function TechReviews() {
           code="04 // TECH_INTELLIGENCE"
           title="TECH, WITHOUT THE NOISE."
           headingId="reviews-heading"
+          level={1}
           blurb="Technology, developer tools, languages, AI experiments, and the occasional hardware take — written plainly and without hype."
         />
 
